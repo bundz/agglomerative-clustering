@@ -1,0 +1,1 @@
+cilk++ main.cilk lib/*.cilk -o main
