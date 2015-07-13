@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include "./lib/Config.hpp"
 #include "./lib/Point.hpp"
 #include "./lib/Cluster.hpp"
 #include "./lib/AgglomerativeClustering.hpp"
@@ -13,9 +14,10 @@
 
 using namespace std;
 
-int main () {
-  
+int main (int argc, char* argv[]) {
    
+  Config config = new Config(argc, argv);
+  
   tbb::tick_count tick_start, tick_end;
   vector<Point*> points;
   AgglomerativeClustering* AC;
