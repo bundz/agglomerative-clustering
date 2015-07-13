@@ -15,6 +15,7 @@ using namespace std;
 
 int main () {
   
+   
   tbb::tick_count tick_start, tick_end;
   vector<Point*> points;
   AgglomerativeClustering* AC;
@@ -24,7 +25,7 @@ int main () {
   int num_points = 10;
   int times = 0;
   
-  cout << "Points,Threads,SequentialTime,TBB,OPENMP" << endl;
+  cout << "Points,Threads,SequentialTime,TBB,OPENMP,CILK_PLUS" << endl;
   
   for(num_points = 10; num_points < 1000000; num_points = num_points * 10) {
         
@@ -58,6 +59,14 @@ int main () {
         
 	  	start = clock();
         c = AC->openMPStart();
+		end = clock();
+        
+        cout << ((double) end - start) / CLOCKS_PER_SEC << ",";
+        
+        AC = new AgglomerativeClustering(points);
+        
+	  	start = clock();
+        c = AC->cilkStart();
 		end = clock();
         
         cout << ((double) end - start) / CLOCKS_PER_SEC << endl;

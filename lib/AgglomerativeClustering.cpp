@@ -137,6 +137,44 @@ Cluster* AgglomerativeClustering::openMPStart() {
   return this->clusters[0];
 }
 
+Cluster* AgglomerativeClustering::cilkStart() {
+  
+    while (this->clusters.size() != 1) {
+  
+      vector<Cluster*> clusters_aux (0);
+      
+      cilk_for(int i = 0; i < this->clusters.size(); i++) {
+
+        Cluster* nearest = this->clusters[i]->findNearest(this->clusters);
+
+        if(nearest->findNearest(this->clusters) == this->clusters[i]) {
+
+          Cluster* cluster = new Cluster(nearest, this->clusters[i]);
+          
+          mutex.lock();
+          clusters_aux.push_back(cluster);
+          mutex.unlock();
+          
+        } else {
+          
+          mutex.lock();
+          clusters_aux.push_back(this->clusters[i]);  
+          mutex.unlock();
+      
+        }
+        
+      }
+
+      this->clusters = clusters_aux;
+
+      this->removeRepetitions();
+
+    }
+  
+  return this->clusters[0];
+}
+
+
 vector<Cluster*> AgglomerativeClustering::fromPointsToClusters (vector<Point*> points) {
   
   vector<Cluster*> newClusters (0);

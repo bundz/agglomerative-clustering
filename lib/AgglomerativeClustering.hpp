@@ -3,6 +3,8 @@
 #include "Point.hpp"
 #include "tbb/parallel_for.h"
 #include "tbb/blocked_range.h"
+#include "tbb/mutex.h"
+#include "cilk/cilk.h"
 
 using namespace std;
 
@@ -15,6 +17,7 @@ class AgglomerativeClustering {
     
     vector<Cluster*> clusters;
     vector<Cluster*> fromPointsToClusters (vector<Point*> points);
+    tbb::mutex mutex;
   
   public:
     
@@ -22,6 +25,7 @@ class AgglomerativeClustering {
     Cluster* start();
     Cluster* parallelStart();
     Cluster* openMPStart();
+    Cluster* cilkStart();
     vector<Cluster*> getClusters();
     void removeRepetitions();
   
