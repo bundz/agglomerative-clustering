@@ -50,7 +50,7 @@ int main () {
         AC = new AgglomerativeClustering(points);
         
         tick_start = tbb::tick_count::now();
-        c = AC->parallelStart();
+        c = AC->TBBStart();
         tick_end = tbb::tick_count::now();
         
         cout << (tick_end - tick_start).seconds() << ",";

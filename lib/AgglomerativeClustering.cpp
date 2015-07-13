@@ -74,8 +74,7 @@ struct Clusterize {
   
 };
 
-//TODO - change method name to tbbStart
-Cluster* AgglomerativeClustering::parallelStart () {
+Cluster* AgglomerativeClustering::TBBStart () {
   
   while (this->clusters.size() != 1) {
     

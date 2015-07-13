@@ -23,7 +23,7 @@ class AgglomerativeClustering {
     
     AgglomerativeClustering (vector<Point*> points);
     Cluster* start();
-    Cluster* parallelStart();
+    Cluster* TBBStart();
     Cluster* openMPStart();
     Cluster* cilkStart();
     vector<Cluster*> getClusters();
